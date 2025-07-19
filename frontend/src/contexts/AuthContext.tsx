@@ -8,7 +8,7 @@ const mockUser: User = {
   id: '1',
   username: 'akshaaybs',
   name: 'Akshay BS',
-  email: 'akshay@example.com',
+  email: 'akshay@github.com',
   avatar: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
   bio: 'Full-stack developer passionate about open source and clean code',
   location: 'San Francisco, CA',
@@ -27,22 +27,49 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (savedUser) {
       setUser(JSON.parse(savedUser));
     }
+    
+    // Check for GitHub OAuth callback
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    if (code) {
+      // In a real app, exchange code for access token
+      handleGitHubCallback(code);
+    }
+    
     setLoading(false);
   }, []);
 
-  const login = async (email: string, password: string) => {
+  const handleGitHubCallback = async (code: string) => {
     setLoading(true);
-    // Simulate API call
+    // Simulate GitHub OAuth flow
     await new Promise(resolve => setTimeout(resolve, 1000));
     
-    // Mock authentication - in real app, validate credentials
-    if (email && password) {
-      setUser(mockUser);
-      localStorage.setItem('user', JSON.stringify(mockUser));
-    } else {
-      throw new Error('Invalid credentials');
-    }
+    // In a real app, you would:
+    // 1. Exchange code for access token
+    // 2. Fetch user data from GitHub API
+    // 3. Create/update user in your database
+    
+    setUser(mockUser);
+    localStorage.setItem('user', JSON.stringify(mockUser));
+    
+    // Clean up URL
+    window.history.replaceState({}, document.title, window.location.pathname);
     setLoading(false);
+  };
+
+  const loginWithGitHub = () => {
+    // In a real app, redirect to GitHub OAuth
+    const clientId = 'your_github_client_id';
+    const redirectUri = encodeURIComponent(window.location.origin + '/auth/callback');
+    const scope = 'read:user user:email public_repo';
+    
+    // For demo purposes, simulate the callback
+    setTimeout(() => {
+      handleGitHubCallback('mock_code');
+    }, 1000);
+    
+    // In production, uncomment this:
+    // window.location.href = `https://github.com/login/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&scope=${scope}`;
   };
 
   const logout = () => {
@@ -50,35 +77,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     localStorage.removeItem('user');
   };
 
-  const signup = async (userData: { name: string; email: string; password: string; bio: string; location: string; isStudent: boolean; company?: string }) => {
-    setLoading(true);
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    // Create new user with provided data
-    const newUser: User = {
-      id: Date.now().toString(),
-      username: userData.email.split('@')[0], // Generate username from email
-      name: userData.name,
-      email: userData.email,
-      avatar: 'https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=150&h=150&dpr=1',
-      bio: userData.bio,
-      location: userData.location,
-      company: userData.company || '',
-      githubUrl: '',
-      joinedDate: new Date().toISOString().split('T')[0]
-    };
-    
-    setUser(newUser);
-    localStorage.setItem('user', JSON.stringify(newUser));
-    setLoading(false);
-  };
-
   const value = {
     user,
     isAuthenticated: !!user,
-    login,
-    signup,
+    loginWithGitHub,
     logout,
     loading
   };

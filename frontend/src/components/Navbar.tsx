@@ -35,7 +35,7 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    navigate('/signin');
+    navigate('/auth');
     setIsProfileDropdownOpen(false);
   };
 

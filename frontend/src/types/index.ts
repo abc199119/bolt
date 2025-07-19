@@ -66,8 +66,7 @@ export interface User {
 export interface AuthContextType {
   user: User | null;
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<void>;
-  signup: (userData: { name: string; email: string; password: string; bio: string; location: string; isStudent: boolean; company?: string }) => Promise<void>;
+  loginWithGitHub: () => void;
   logout: () => void;
   loading: boolean;
 }

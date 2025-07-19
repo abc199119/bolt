@@ -6,7 +6,6 @@ import Navbar from './components/Navbar';
 import ProtectedRoute from './components/ProtectedRoute';
 import PublicRoute from './components/PublicRoute';
 import LoginForm from './components/LoginForm';
-import SignupForm from './components/SignupForm';
 import Dashboard from './components/Dashboard';
 import PullRequests from './components/PullRequests';
 import Profile from './components/Profile';
@@ -48,14 +47,19 @@ function AppContent() {
   return (
     <Router>
       <Routes>
-        <Route path="/signin" element={
+        <Route path="/auth" element={
           <PublicRoute>
             <LoginForm />
           </PublicRoute>
         } />
-        <Route path="/signup" element={
+        <Route path="/auth/github" element={
           <PublicRoute>
-            <SignupForm />
+            <LoginForm />
+          </PublicRoute>
+        } />
+        <Route path="/auth/callback" element={
+          <PublicRoute>
+            <LoginForm />
           </PublicRoute>
         } />
         <Route path="/*" element={<AppLayout />} />
