@@ -5,7 +5,8 @@ export default function LoginForm() {
   const handleGitHubLogin = () => {
     // In a real app, this would redirect to GitHub OAuth
     // For demo purposes, we'll simulate the login
-    window.location.href = '/auth/github';
+    window.location.href = import.meta.env.VITE_BACKEND_ROUTE + '/api/auth/github';
+    
   };
 
   return (
