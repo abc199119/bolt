@@ -9,6 +9,7 @@ export interface PullRequest {
   linesAdded: number;
   linesRemoved: number;
   reviewers: string[];
+  files: File[];
   comments: Comment[];
   score: number;
   url: string;
@@ -21,6 +22,13 @@ export interface Comment {
   sentiment: 'positive' | 'neutral' | 'negative';
   date: string;
   isReviewer: boolean;
+}
+
+export interface File{
+  file: string;
+  changes: string;
+  additions:string[];
+  deletions:string[];
 }
 
 export interface UserProfile {
