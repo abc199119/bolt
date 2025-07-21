@@ -25,12 +25,14 @@ export default function Navbar() {
 
   const currentView = location.pathname === '/' ? 'dashboard' : 
                      location.pathname === '/pull-requests' ? 'pull-requests' : 
-                     location.pathname === '/public-profile' ? 'public-profile' : 'dashboard';
+                     location.pathname === '/public-profile' ? 'public-profile' : 
+                     location.pathname === '/code-review' ? 'code-review' : 'dashboard';
 
   const navigationItems = [
     { id: 'dashboard', label: 'Dashboard', icon: ChartBarIcon, path: '/' },
     { id: 'pull-requests', label: 'Pull Requests', icon: DocumentTextIcon, path: '/pull-requests' },
-    { id: 'public-profile', label: 'Public Profile', icon: UserCircleIcon, path: '/public-profile' }
+    { id: 'public-profile', label: 'Public Profile', icon: UserCircleIcon, path: '/public-profile' },
+    { id: 'code-review', label: 'Code Review', icon: CodeBracketIcon, path: '/code-review' }
   ];
 
   const handleLogout = () => {

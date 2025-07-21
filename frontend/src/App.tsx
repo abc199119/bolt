@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard';
 import PullRequests from './components/PullRequests';
 import Profile from './components/Profile';
 import UserProfile from './components/UserProfile';
+import CodeReviewAnalysis from './components/CodeReviewAnalysis';
 
 function AppLayout() {
   return (
@@ -35,6 +36,11 @@ function AppLayout() {
           <Route path="/profile" element={
             <ProtectedRoute>
               <UserProfile />
+            </ProtectedRoute>
+          } />
+          <Route path="/code-review" element={
+            <ProtectedRoute>
+              <CodeReviewAnalysis />
             </ProtectedRoute>
           } />
         </Routes>
