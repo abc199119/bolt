@@ -5,9 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "cd frontend && npm run dev",
-    "build": "vite build",
+    "build": "cd frontend && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "cd frontend && vite preview"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
